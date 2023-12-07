@@ -15,8 +15,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Create 'releases' label
-      #   run: gh api repos/:owner/:repo/labels --field name=releases --field color=ff0000 --field description="For releases" --method POST
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: pull latest changes 
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
+          echo "$BRANCH_NAME"          
+          git config --global user.name "oat-github-bot"
+          git config --global user.email "oat-github-bot@taotesting.com" 
+          git clone git@github.com:oat-sa/test-public1-repo.git
+          cd test-public1-repo
+          git checkout $BRANCH_NAME
+          git merge -X ours release -m "overwrite with new changes"
+          git push -u origin    $BRANCH_NAME  
 
 
       - name: Create Pull Request
@@ -37,24 +52,7 @@ jobs:
         run: |
           PR_NUMBER=$(echo "${{ steps.create-pr.outputs.stdout }}" | awk '{print $4}')
           gh pr edit $PR_NUMBER --add-label releases
-
-
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: pull latest changes 
-        run: |
-          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
-          echo "$BRANCH_NAME"          
-          git config --global user.name "oat-github-bot"
-          git config --global user.email "oat-github-bot@taotesting.com" 
-          git clone git@github.com:oat-sa/test-public1-repo.git
-          cd test-public1-repo
-          git checkout $BRANCH_NAME
-          git merge -X ours release -m "overwrite with new changes"
-          git push -u origin    $BRANCH_NAME         
+      
      
       - name: Merge PR if condition is met
         if: github.actor == 'edwin-focaloid'
