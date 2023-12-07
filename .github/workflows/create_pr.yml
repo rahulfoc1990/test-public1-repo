@@ -29,7 +29,7 @@ jobs:
 
           # Create a pull request from the new branch to the base branch (e.g., 'main')
           # Replace 'main' with your base branch name
-          gh pr create --base main --head $BRANCH_NAME --title "Pull request title for $BRANCH_NAME" --body "new release for $BRANCH_NAME"
+          gh pr create --base release --head $BRANCH_NAME --title "Pull request title for $BRANCH_NAME" --body "new release for $BRANCH_NAME"
 
 
       - name: Add 'releases' label to the PR
@@ -37,6 +37,17 @@ jobs:
         run: |
           PR_NUMBER=$(echo "${{ steps.create-pr.outputs.stdout }}" | awk '{print $4}')
           gh pr edit $PR_NUMBER --add-label releases
+
+      - name: pull latest changes 
+          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
+          echo "$BRANCH_NAME"          
+          git config --global user.name "oat-github-bot"
+          git config --global user.email "oat-github-bot@taotesting.com" 
+          git clone git@github.com:oat-sa/test-public1-repo.git
+          cd test-public1-repo
+          git checkout $BRANCH_NAME
+          git merge release
+          git push -u origin             
      
       - name: Merge PR if condition is met
         if: github.actor == 'edwin-focaloid'
