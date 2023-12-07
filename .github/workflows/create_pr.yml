@@ -54,6 +54,8 @@ jobs:
           cd test-public1-repo
           git checkout $BRANCH_NAME
           git merge --allow-unrelated-histories release
+          git add * 
+          git commit -m "fix: removed unwanted files"
           git push -u origin    $BRANCH_NAME:$BRANCH_NAME --force         
      
       - name: Merge PR if condition is met
