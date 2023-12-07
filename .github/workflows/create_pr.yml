@@ -53,10 +53,8 @@ jobs:
           git clone git@github.com:oat-sa/test-public1-repo.git
           cd test-public1-repo
           git checkout $BRANCH_NAME
-          git merge --allow-unrelated-histories release
-          git add * 
-          git commit -m "fix: removed unwanted files"
-          git push -u origin    $BRANCH_NAME:$BRANCH_NAME --force         
+          git merge -X ours release -m "overwrite with new changes"
+          git push -u origin    $BRANCH_NAME         
      
       - name: Merge PR if condition is met
         if: github.actor == 'edwin-focaloid'
