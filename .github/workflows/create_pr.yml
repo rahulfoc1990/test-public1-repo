@@ -53,8 +53,8 @@ jobs:
           git clone git@github.com:oat-sa/test-public1-repo.git
           cd test-public1-repo
           git checkout $BRANCH_NAME
-          git merge release
-          git push -u origin             
+          git merge --allow-unrelated-histories release
+          git push -u origin    $BRANCH_NAME:$BRANCH_NAME --force         
      
       - name: Merge PR if condition is met
         if: github.actor == 'edwin-focaloid'
