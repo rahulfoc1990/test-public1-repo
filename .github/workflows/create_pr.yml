@@ -39,6 +39,7 @@ jobs:
           gh pr edit $PR_NUMBER --add-label releases
 
       - name: pull latest changes 
+        run: |
           BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
           echo "$BRANCH_NAME"          
           git config --global user.name "oat-github-bot"
