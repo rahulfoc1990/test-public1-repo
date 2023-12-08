@@ -51,6 +51,7 @@ jobs:
         run: |
           PR_NUMBER=$(echo "${{ steps.create-pr.outputs.stdout }}" | awk '{print $4}')
           gh pr edit $PR_NUMBER --add-label releases
+          echo ${{ github.actor }}
       
      
       - name: Merge PR if condition is met
