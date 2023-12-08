@@ -3,7 +3,7 @@ name: Create PR on New Branch
 on:
   push:
     branches:
-      - 'public-*'  # Adjust the branch name pattern as needed
+      - 'release-*'  # Adjust the branch name pattern as needed
 
 jobs:
   create-pr:
@@ -15,27 +15,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # - name: Set up SSH agent
+      #   uses: webfactory/ssh-agent@v0.8.0
+      #   with:
+      #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: pull latest changes 
-        run: |
-          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
-          echo "$BRANCH_NAME"          
-          git config --global user.name "oat-github-bot"
-          git config --global user.email "oat-github-bot@taotesting.com" 
-          git clone git@github.com:oat-sa/test-public1-repo.git
-          cd test-public1-repo
-          git checkout $BRANCH_NAME
-          git merge -X ours release -m "overwrite with new changes"
-          git push -u origin    $BRANCH_NAME  
+      # - name: pull latest changes 
+      #   run: |
+      #     BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
+      #     echo "$BRANCH_NAME"          
+      #     git config --global user.name "oat-github-bot"
+      #     git config --global user.email "oat-github-bot@taotesting.com" 
+      #     git clone git@github.com:oat-sa/test-public1-repo.git
+      #     cd test-public1-repo
+      #     git checkout $BRANCH_NAME
+      #     git merge -X ours release -m "overwrite with new changes"
+      #     git push -u origin    $BRANCH_NAME  
 
 
       - name: Create Pull Request
-        if: startsWith(github.ref, 'refs/heads/public-') && github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/heads/release-') && github.event_name == 'push'
         id: create-pr        
         run: |
           # Get the branch name
@@ -44,7 +43,7 @@ jobs:
 
           # Create a pull request from the new branch to the base branch (e.g., 'main')
           # Replace 'main' with your base branch name
-          gh pr create --base release --head $BRANCH_NAME --title "Pull request title for $BRANCH_NAME" --body "new release for $BRANCH_NAME"
+          gh pr create --base develop --head $BRANCH_NAME --title "Pull request title for $BRANCH_NAME" --body "new release for $BRANCH_NAME"
 
 
       - name: Add 'releases' label to the PR

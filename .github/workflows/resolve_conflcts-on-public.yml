@@ -1,0 +1,39 @@
+name: resolving conflicts
+
+on:
+  push:
+    branches:
+      - 'public-*'  # Adjust the branch name pattern as needed
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}    
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3    
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: pull latest changes 
+        if: github.actor == 'edwin-focaloid'
+        run: |
+          echo $${{ github.actor }}"
+          time=$(date +"%I-%M-%S_%d-%m-%Y")
+          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
+          echo "$BRANCH_NAME"          
+          git config --global user.name "oat-github-bot"
+          git config --global user.email "oat-github-bot@taotesting.com" 
+          git clone git@github.com:oat-sa/test-public1-repo.git
+          cd test-public1-repo
+          git checkout $BRANCH_NAME
+          git merge -X ours release -m "overwrite with new changes"
+
+          git checkout -b "release-public-verison-$time"
+          git push -u origin    "release-public-verison-$time":"release-public-verison-$time"
+
