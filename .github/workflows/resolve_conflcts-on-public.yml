@@ -23,7 +23,7 @@ jobs:
       - name: pull latest changes 
         if: github.actor == 'edwin-focaloid'
         run: |
-          echo $${{ github.actor }}"
+          echo $${{ github.actor }}
           time=$(date +"%I-%M-%S_%d-%m-%Y")
           BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
           echo "$BRANCH_NAME"          
