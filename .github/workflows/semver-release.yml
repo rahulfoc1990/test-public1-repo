@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
    branches:
-     - release-test
-
+     - develop
 jobs:
   build:
     runs-on: ubuntu-latest
