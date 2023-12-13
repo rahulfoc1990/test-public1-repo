@@ -45,4 +45,4 @@ jobs:
           taoRelease repoRelease --release-branch main --base-branch release --no-interactive
 
           #Release branch will be different for each repository, make necessary changes. 
-          #created a new 'main' branch from develop 
+          #verify everything working fine
