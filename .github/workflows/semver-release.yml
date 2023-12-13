@@ -42,7 +42,7 @@ jobs:
           npm i update-notifier 
           cd ../
           #create tag and release a new version
-          taoRelease repoRelease --release-branch main --base-branch release --no-interactive
+          taoRelease repoRelease --release-branch main --base-branch develop --no-interactive
 
           #Release branch will be different for each repository, make necessary changes. 
           #verify everything working fine, one more check
