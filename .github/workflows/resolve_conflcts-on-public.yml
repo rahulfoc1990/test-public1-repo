@@ -32,7 +32,7 @@ jobs:
           git clone git@github.com:oat-sa/test-public1-repo.git
           cd test-public1-repo
           git checkout $BRANCH_NAME
-          git merge -X ours develop -m "overwrite with new changes"
+          git merge -X ours develop -m "overwrite with ours changes"
 
           git checkout -b "release-public-verison-$time"
           git push -u origin    "release-public-verison-$time":"release-public-verison-$time"
