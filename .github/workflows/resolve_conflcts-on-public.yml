@@ -30,6 +30,8 @@ jobs:
           git config --global user.name "oat-github-bot"
           git config --global user.email "oat-github-bot@taotesting.com" 
           git clone git@github.com:oat-sa/test-public1-repo.git
+          echo "${{ github.actor }}"
+      
           cd test-public1-repo
           git checkout $BRANCH_NAME
           git merge -X ours develop -m "overwrite with ours changes"
