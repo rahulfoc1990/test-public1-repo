@@ -48,6 +48,7 @@ jobs:
 
       - name: Add 'releases' label to the PR
         if: steps.create-pr.outcome == 'success'
+        #add release label manually into the repo, if we using this step
         run: |
           PR_NUMBER=$(echo "${{ steps.create-pr.outputs.stdout }}" | awk '{print $4}')
           gh pr edit $PR_NUMBER --add-label releases
