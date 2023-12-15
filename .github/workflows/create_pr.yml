@@ -57,6 +57,8 @@ jobs:
      
       - name: Merge PR if condition is met
         if: github.actor == 'edwin-focaloid'
+        env: 
+          GITHUB_TOKEN: ${{ secrets.SEMVER_GH_TOKEN }}        
         run: |
           echo "GitHub Actor: ${{ github.actor }}"
           PR_NUMBER=$(gh pr list --limit 1 --json number --jq '.[] | .number')
