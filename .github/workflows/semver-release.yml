@@ -9,6 +9,7 @@ jobs:
   auto-release:
     # if: github.event.pull_request.merged == true
     # name: Automated package release
+    if: github.actor == 'edwin-focaloid'
     runs-on: ubuntu-latest
     
     steps:    
