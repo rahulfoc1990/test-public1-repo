@@ -24,7 +24,8 @@ jobs:
 
       - name: Dir for clone tao-release-tool
         run: |
-          mkdir tao-extension               
+          mkdir tao-extension      
+          echo "GitHub Actor: ${{ github.actor }}"         
 
       - name: clone release tool repo
         uses: actions/checkout@v3
