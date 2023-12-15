@@ -6,7 +6,9 @@ on:
    branches:
      - develop
 jobs:
-  build:
+  auto-release:
+    # if: github.event.pull_request.merged == true
+    # name: Automated package release
     runs-on: ubuntu-latest
     
     steps:    
