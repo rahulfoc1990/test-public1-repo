@@ -30,7 +30,7 @@ jobs:
       - name: setup users
         run: | 
           git  config --global user.email "edwin.sany@focaloid.com"
-          git config --global user.name "edwin-focaloid"
+          git config --global user.name "edwin-taotesting"
           
           time=$(date +"%I-%M-%S_%d-%m-%Y")
           git checkout -b "public-$time"
