@@ -10,7 +10,7 @@ jobs:
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
     steps:
-       - name: Clone remote repository
+      - name: Clone remote repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0   
