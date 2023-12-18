@@ -10,15 +10,21 @@ jobs:
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
     steps:
-      - name: Clone remote repository
-        uses: actions/checkout@v3
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.8.0
         with:
-          fetch-depth: 0   
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Get PR number
         run: |
-          echo "here is the PR number"
-          time=$(date +"%I-%M-%S_%d-%m-%Y")
+          echo "${{ github.actor }}"
+          time=$(date +"%I-%M-%S_%d-%m-%Y") 
+          git clone git@github.com:oat-sa/test-public1-repo.git
+
+          cd test-public1-repo
+          git config  user.name "edwin-focaloid"
+          git config  user.email "edwin-focaloid@taotesting.com"
+
           wget "https://github.com/oat-sa/test-public1-repo/pull/${{ github.event.pull_request.number }}.patch"
           ls -al
           git apply $(ls -al | awk '{print $9}'| grep *.patch)
