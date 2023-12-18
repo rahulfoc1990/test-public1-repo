@@ -1,4 +1,4 @@
-name: Trigger On PR to Develop (Excluding Specific User)
+name: Copy PRs to source
 
 on:
   pull_request:
@@ -7,24 +7,8 @@ on:
 
 jobs:
   on_pr_to_develop:
-    if: github.actor != 'edwin-focaloid'
+    if: github.actor == 'edwin-focaloid'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Checkout everything to get access to the tags
-          ref: ${{github.event.pull_request.head.ref}}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Send pull-request
-        run: |
-          LATEST_TAG=$(git describe --tags --always --abbrev=0)
-          echo $LATEST_TAG
-          REPOSITORY="some-user/some-repository"
-          echo $REPOSITORY
-          FOLDER="bin/$REPOSITORY"
-          echo $FOLDER
-          BRANCH_NAME="chore-update-scripts-to-$LATEST_TAG"      
-          echo $BRANCH_NAME
+      - name: Get PR number
+        run: echo "The PR number is ${{ github.event.pull_request.number }}"
