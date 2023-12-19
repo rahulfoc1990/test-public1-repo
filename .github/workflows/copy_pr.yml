@@ -9,13 +9,27 @@ jobs:
   on_pr_to_develop:
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }} 
+
     steps:
       - name: Checkout head branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
+      - name: setup users
+        run: | 
+          git  config --global user.email "edwin.sany@focaloid.com"
+          git config --global user.name "edwin-taotesting"
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
 
       - name: Create and checkout new branch
         run: |
@@ -23,6 +37,10 @@ jobs:
           time=$(date +"%I-%M-%S_%d-%m-%Y")        
           git checkout -b PR-from-public-$time
           git branch
+          git remote add private git@github.com:oat-sa/test-private-repo.git
+          git remote -v
+          branch_name=$(git branch  | grep '*' | awk '{print $2}')
+          git push -u private "$branch_name":"$branch_name"
 
 
           # git config  user.name "edwin-focaloid"
