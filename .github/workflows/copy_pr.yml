@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }} 
+      SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     steps:
       - name: Checkout head branch
@@ -26,8 +27,7 @@ jobs:
           git  config --global user.email "edwin.sany@focaloid.com"
           git config --global user.name "edwin-taotesting"
           git config --list
-          key-ssh=${{ secrets.SSH_PRIVATE_KEY }}
-          echo $key-ssh
+
 
       - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.8.0
