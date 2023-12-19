@@ -13,13 +13,17 @@ jobs:
       - name: Checkout head branch
         uses: actions/checkout@v2
         with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.MY_TOKEN }}
           fetch-depth: 0
 
       - name: Create and checkout new branch
         run: |
+          git branch
           time=$(date +"%I-%M-%S_%d-%m-%Y")        
-          git checkout -b PR-from-public-
+          git checkout -b PR-from-public-$time
+          git branch
 
 
           # git config  user.name "edwin-focaloid"
