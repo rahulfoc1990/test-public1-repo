@@ -42,6 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SEMVER_GH_TOKEN }}
         run: |
           cd tao-extension
+          echo "GitHub Actor: ${{ github.actor }}" 
           npm i -g
           npm i update-notifier 
           cd ../
