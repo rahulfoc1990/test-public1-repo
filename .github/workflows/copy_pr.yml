@@ -25,6 +25,9 @@ jobs:
         run: | 
           git  config --global user.email "edwin.sany@focaloid.com"
           git config --global user.name "edwin-taotesting"
+          git config --list
+          key-ssh=${{ secrets.SSH_PRIVATE_KEY }}
+          echo $key-ssh
 
       - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.8.0
