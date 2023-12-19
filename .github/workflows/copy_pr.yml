@@ -19,18 +19,25 @@ jobs:
         run: |
           echo "${{ github.actor }}"
           time=$(date +"%I-%M-%S_%d-%m-%Y") 
+          
+          # Get the branch name
+          BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f3)
+          echo "$BRANCH_NAME"
 
-          git config  user.name "edwin-focaloid"
-          git config  user.email "edwin-focaloid@taotesting.com"
 
-          git config --list
 
-          wget "https://github.com/oat-sa/test-public1-repo/pull/${{ github.event.pull_request.number }}.patch"
-          ls -al
-          git branch 
-          git checkout -b "pr-public-$time"
-          git branch
-          git apply $(ls -al | awk '{print $9}'| grep *.patch)
+
+          # git config  user.name "edwin-focaloid"
+          # git config  user.email "edwin-focaloid@taotesting.com"
+
+          # git config --list
+
+          # wget "https://github.com/oat-sa/test-public1-repo/pull/${{ github.event.pull_request.number }}.patch"
+          # ls -al
+          # git branch 
+          # git checkout -b "pr-public-$time"
+          # git branch
+          # git apply $(ls -al | awk '{print $9}'| grep *.patch)
 
           # rm -rf "${{ github.event.pull_request.number }}.patch"
           # git checkout -b "add_public_pr-$time"
