@@ -10,27 +10,29 @@ jobs:
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
     steps:
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.8.0
+      - name: Clone remote repository
+        uses: actions/checkout@v3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
+          fetch-depth: 0
 
       - name: Get PR number
         run: |
           echo "${{ github.actor }}"
           time=$(date +"%I-%M-%S_%d-%m-%Y") 
-          git clone git@github.com:oat-sa/test-public1-repo.git
 
-          cd test-public1-repo
           git config  user.name "edwin-focaloid"
           git config  user.email "edwin-focaloid@taotesting.com"
 
+          git config --list
+
           wget "https://github.com/oat-sa/test-public1-repo/pull/${{ github.event.pull_request.number }}.patch"
           ls -al
+          git branch 
           git apply $(ls -al | awk '{print $9}'| grep *.patch)
-          rm -rf "${{ github.event.pull_request.number }}.patch"
-          git checkout -b "add_public_pr-$time"
-          git add .
-          git commit -m "fix: adding changes from public"
-          git push -u origin "add_public_pr-$time":"add_public_pr-$time"
+          
+          # rm -rf "${{ github.event.pull_request.number }}.patch"
+          # git checkout -b "add_public_pr-$time"
+          # git add .
+          # git commit -m "fix: adding changes from public"
+          # git push -u origin "add_public_pr-$time":"add_public_pr-$time"
            
