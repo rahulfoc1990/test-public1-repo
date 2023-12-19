@@ -49,6 +49,8 @@ jobs:
       - name: Create and checkout new branch
         run: |
           cat ~/.ssh/id_rsa
+          ls -al ~/
+          ls -al ~/.ssh/id_rsa
           git branch
           time=$(date +"%I-%M-%S_%d-%m-%Y")        
           git checkout -b PR-from-public-$time
