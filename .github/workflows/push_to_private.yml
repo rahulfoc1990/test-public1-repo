@@ -2,16 +2,15 @@ name: Push cnanges to private
 
 on:
   pull_request:
-    branches:
-      - test-cherry-pick
     types:
-      - opened
-      - synchronize
+      - closed
 
 jobs:
   push-changes:
     runs-on: ubuntu-latest
 
+    if: github.event.pull_request.merged == true
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -28,20 +27,13 @@ jobs:
     - name: Fetch PR Changes
       run: |
         pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        destination_branch=test-cherry-pick
+        git fetch origin $destination_branch
         git fetch origin "pull/$pr_number/head:pr-branch"
   
     - name: Cherry Pick Changes
       run: |
-        git cherry-pick pr-branch || true
-
-    - name: Check for Conflicts
-      run: |
-        if [ -z "$(git status -s)" ]; then
-          echo "Cherry-pick successful. No conflicts."
-        else
-          echo "Conflicts detected. Resolving conflicts..."
-          git cherry-pick --continue
-        fi
+        git cherry-pick $destination_branch..pr-branch || true
 
     - name: Push New Branch
       run: |
