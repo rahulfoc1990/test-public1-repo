@@ -32,7 +32,16 @@ jobs:
   
     - name: Cherry Pick Changes
       run: |
-        git cherry-pick pr-branch
+        git cherry-pick pr-branch || true
+
+    - name: Check for Conflicts
+      run: |
+        if [ -z "$(git status -s)" ]; then
+          echo "Cherry-pick successful. No conflicts."
+        else
+          echo "Conflicts detected. Resolving conflicts..."
+          git cherry-pick --continue
+        fi
 
     - name: Push New Branch
       run: |
