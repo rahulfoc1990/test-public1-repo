@@ -5,8 +5,7 @@ on:
     branches:
       - test-cherry-pick
     types:
-      - opened
-      - synchronize
+      - closed
 
 jobs:
   push-changes:
@@ -24,7 +23,7 @@ jobs:
     - name: Cherry-pick changes
       run: |
         git checkout -b cherry-pick-branch
-        git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
-        git cherry-pick pr-branch
+        git fetch origin pull/${{ github.event.pull_request.number }}/head:test-cherry-pick
+        git cherry-pick test-cherry-pick
         git push origin cherry-pick-branch
            
