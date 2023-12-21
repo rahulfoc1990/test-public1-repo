@@ -2,8 +2,6 @@ name: Push cnanges to private
 
 on:
   pull_request:
-    branches:
-      - test-cherry-pick
     types:
       - closed
 
@@ -24,6 +22,6 @@ jobs:
       run: |
         git checkout -b cherry-pick-branch
         git fetch origin pull/${{ github.event.pull_request.number }}/head:test-cherry-pick
-        git cherry-pick test-cherry-pick
+        git cherry-pick -m 1 FETCH_HEAD
         git push origin cherry-pick-branch
            
