@@ -8,4 +8,4 @@ test-release
 test-release
 test-release3
 test-release4
-test1
+test
