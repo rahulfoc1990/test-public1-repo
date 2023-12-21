@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set Git user information
+      run: |
+        git config --global user.email "happybot+devops@taotesting.com"
+        git config --global user.name "HappyBot"
+
     - name: Checkout code
       uses: actions/checkout@v2
 
