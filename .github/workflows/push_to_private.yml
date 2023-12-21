@@ -1,0 +1,25 @@
+name: Push cnanges to private
+
+on:
+  pull_request:
+    branches:
+      - test-cherry-pick
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  push-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Cherry-pick changes
+      run: |
+        git checkout -b cherry-pick-branch
+        git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
+        git cherry-pick pr-branch
+        git push origin cherry-pick-branch
+           
