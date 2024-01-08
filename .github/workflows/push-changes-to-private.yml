@@ -29,7 +29,7 @@ jobs:
         
         
       - name: Send repository_dispatch event
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v2 #this is not reflected
         with:
           token: ${{ secrets.AUTOMATED_USER_TOKEN }}
           repository: oat-sa/test-private-repo
