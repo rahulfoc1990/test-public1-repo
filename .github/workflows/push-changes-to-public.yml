@@ -44,7 +44,7 @@ jobs:
           git rm -r docker 
           git rm -r remove.txt
           git rm -r .github/workflows/push-changes-to-public.yml
-          git rm -r .github/workflows/push-changes-to-private.yml
+          git rm -r .github/workflows/push-changes-to-private.yml #removed this on public as well
           git add * 
           git commit -m "fix: testing"
 
