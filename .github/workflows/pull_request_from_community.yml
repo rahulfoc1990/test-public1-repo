@@ -32,12 +32,10 @@ jobs:
 
             git cherry-pick  ${{ github.event.client_payload.commit_sha }}..FETCH_HEAD || true
 
-            git push origin testing-cherry-pick-${{ github.event.client_payload.pr_num }}:testing-cherry-pick-${{ github.event.client_payload.pr_num }}
-
-
+            git push origin "testing-cherry-pick-${{ github.event.client_payload.pr_num }}:testing-cherry-pick-${{ github.event.client_payload.pr_num }}"
 
       - name: create PR
         run: | 
-          gh pr create --base main --head testing-cherry-pick-${{ github.event.client_payload.pr_num }} --title "community PR ${{ github.event.client_payload.pr_num }}" --body "review requested changes."
+            gh pr create --base main --head testing-cherry-pick-${{ github.event.client_payload.pr_num }} --title "community PR ${{ github.event.client_payload.pr_num }}" --body "review requested changes"
           
-          echo "PR created successfully"
+            echo "PR created successfully"

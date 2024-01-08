@@ -34,4 +34,4 @@ jobs:
           token: ${{ secrets.CI_GITHUB_TOKEN }}
           repository: oat-sa/test-private-repo
           event-type: pull-changes-from-community
-          client-payload: '{ "pr_num": "${{ stepts.fetch_details.outputs.pr_number}}", "commit_sha": "${{ stepts.fetch_details.outputs.last_commit}}" }'
+          client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
