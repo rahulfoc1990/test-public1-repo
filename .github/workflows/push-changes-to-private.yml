@@ -29,9 +29,9 @@ jobs:
         
         
       - name: Send repository_dispatch event
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMATED_USER_TOKEN }}
           repository: oat-sa/test-private-repo
           event-type: pull-changes-from-community
           client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
