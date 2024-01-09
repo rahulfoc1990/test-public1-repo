@@ -29,7 +29,7 @@ jobs:
         id: fetch_details
         run : | 
           echo ${{ github.repository }}
-          git branch
+          git fetch origin develop
           git checkout develop
           echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
           echo $last_commit
