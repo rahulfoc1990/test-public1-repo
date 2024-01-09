@@ -44,7 +44,7 @@ jobs:
           git rm -r docker 
           git rm -r remove.txt
           git rm -r .github/workflows/push-changes-to-public.yml
-          git rm -r .github/workflows/push-changes-to-private.yml #removed this on public as well
+          git rm -r .github/workflows/pull_request_from_community.yml #removed this on public as well
           git add .
           git commit -m "fix: testing"
 
@@ -52,7 +52,6 @@ jobs:
         run: |
           
           git remote add public git@github.com:oat-sa/test-public1-repo.git
-          #git remote add public2 git@github.com:oat-sa/test-public2-repo.git
           git remote -v
           branch_name=$(git branch  | grep '*' | awk '{print $2}')
           git push -u public "$branch_name":"$branch_name"
