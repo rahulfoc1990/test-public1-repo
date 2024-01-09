@@ -1,4 +1,4 @@
-name: pull request changes from community
+name: change request from community
 
 on:
   repository_dispatch:
