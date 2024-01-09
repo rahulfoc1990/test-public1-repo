@@ -1,0 +1,37 @@
+name: send repository dispacth on private
+on:
+    pull_request:
+      branches:
+        - 'develop'
+      types: [opened]
+
+
+jobs:
+  send_repository_dispatch: 
+    if: github.actor != 'edwin-focaloid'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3      
+        
+        
+      - name: Set Git user information
+        run: |
+          git config --global user.email "happybot+devops@taotesting.com"
+          git config --global user.name "HappyBot"
+
+
+      - name: get commit and PR number 
+        id: fetch_details
+        run : | 
+          echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
+          echo "pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" >> $GITHUB_OUTPUT
+        
+        
+      - name: Send repository_dispatch event
+        uses: peter-evans/repository-dispatch@v2 #this is not reflected
+        with:
+          token: ${{ secrets.AUTOMATED_USER_TOKEN }}
+          repository: oat-sa/test-private-repo
+          event-type: pull-changes-from-community
+          client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
