@@ -1,4 +1,4 @@
-name: Repository dispacth on private
+name: send repository dispacth on private
 on:
     pull_request:
       branches:
