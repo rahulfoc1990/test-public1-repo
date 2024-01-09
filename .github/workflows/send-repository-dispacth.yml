@@ -11,7 +11,7 @@ jobs:
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}       
+      GITHUB_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}       
     steps:
       - name: Checkout code
         uses: actions/checkout@v3      
@@ -39,7 +39,7 @@ jobs:
       - name: Send repository_dispatch event
         uses: peter-evans/repository-dispatch@v2 #this is not reflected
         with:
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }} #changed param name
+          token: ${{ secrets.MY_TOKEN }} #changed param name
           repository: oat-sa/test-private-repo
           event-type: pull-changes-from-community
           client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
