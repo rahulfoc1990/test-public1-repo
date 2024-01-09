@@ -15,7 +15,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3      
-        
+        with: 
+          repository: oat-sa/test-public1-repo
+                 
         
       - name: Set Git user information
         run: |
@@ -26,6 +28,8 @@ jobs:
       - name: get commit and PR number 
         id: fetch_details
         run : | 
+          echo ${{ github.repository }}
+          git branch
           git checkout develop
           echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
           echo $last_commit
