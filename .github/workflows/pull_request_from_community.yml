@@ -8,7 +8,7 @@ jobs:
   cherry-picking:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}  
+      GH_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}  
     steps:
 
       - name: Set up SSH agent
