@@ -28,6 +28,7 @@ jobs:
       - name: Fetch PR Changes
         run: |
             git remote add upstream-public git@github.com:oat-sa/test-public1-repo.git
+            git remote -v 
             git fetch upstream-public pull/${{ github.event.client_payload.pr_num }}/head
 
             git cherry-pick  ${{ github.event.client_payload.commit_sha }}..FETCH_HEAD || true
