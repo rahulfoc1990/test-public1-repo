@@ -27,7 +27,7 @@ jobs:
           
       - name: Create New Branch
         run: |
-            git checkout -b testing-cherry-pick-${{ github.event.client_payload.pr_num }}
+            git checkout -b testing-cherry-pick-PR_num-${{ github.event.client_payload.pr_num }}
 
 
 
