@@ -10,6 +10,12 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}  
     steps:
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Checkout code
         uses: actions/checkout@v3
 
