@@ -47,7 +47,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v1 #this is not reflected
         with:
           # token:  "${{env.env1}}${{env.env2}}${{env.env3}}"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
           repository: oat-sa/test-private-repo
           event-type: pull-changes-from-community
           client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
