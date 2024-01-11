@@ -44,7 +44,7 @@ jobs:
 
         uses: peter-evans/repository-dispatch@v1 #this is not reflected
         with:
-          token: "test-file"
+          token: $GITHUB_TOKEN
           repository: oat-sa/test-private-repo
           event-type: pull-changes-from-community
           client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
