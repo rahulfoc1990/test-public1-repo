@@ -37,9 +37,9 @@ jobs:
             git remote -v 
             git fetch upstream-public pull/${{ github.event.client_payload.pr_num }}/head
 
-            git cherry-pick  ${{ github.event.client_payload.pr_num }}..FETCH_HEAD || true
+            git cherry-pick  ${{ github.event.client_payload.commit_sha }}..FETCH_HEAD || true
 
-            git push origin "testing-cherry-pick-${{ github.event.client_payload.pr_num }}:testing-cherry-pick-${{ github.event.client_payload.pr_num }}"
+            git push origin "testing-cherry-pick-PR_num-${{ github.event.client_payload.pr_num }}:testing-cherry-pick-PR_num${{ github.event.client_payload.pr_num }}"
 
       - name: create PR
         run: | 
