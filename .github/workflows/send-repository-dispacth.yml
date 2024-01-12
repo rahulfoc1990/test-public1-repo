@@ -10,8 +10,8 @@ jobs:
   send_repository_dispatch: 
     if: github.actor != 'edwin-focaloid'
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}       
+    # env:
+    #   GITHUB_TOKEN: ${{ secrets.AUTOMATED_USER_TOKEN }}       
     steps:
       - name: Checkout code
         uses: actions/checkout@v3      
