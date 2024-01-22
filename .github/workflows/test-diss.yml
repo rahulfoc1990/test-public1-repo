@@ -26,7 +26,7 @@ jobs:
         - name: Get Latest Pull Request Number
           run: |
               # Get the number of the latest open pull request
-              LATEST_PR_NUMBER=$(gh pr list --json 'number' --state open --base main | jq -r '.[0].number')
+              LATEST_PR_NUMBER=$(gh pr list --json 'number' --state open --base develop | jq -r '.[0].number')
     
               # Print the latest pull request number
               echo "Latest Pull Request Number: $LATEST_PR_NUMBER"
