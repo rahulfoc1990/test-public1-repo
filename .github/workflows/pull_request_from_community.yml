@@ -50,9 +50,8 @@ jobs:
       - name: attach label and add comment
         run: | 
 
-          REPO_URL=git@github.com:oat-sa/test-public1-repo.git"
-          COMMENT="Your comment goes here"
-          LABEL_NAME="your-label"
+          REPO_URL="git@github.com:oat-sa/test-public1-repo.git"
+          COMMENT="we will take this requested changes on next release"
 
           # Clone the repository
           git clone $REPO_URL
