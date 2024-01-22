@@ -1,0 +1,27 @@
+name: repository dispatch test
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  send_repository_dispatch: 
+    runs-on: ubuntu-latest     
+    steps:
+
+        - name: get commit and PR number 
+          id: fetch_details
+          run : | 
+            echo ${{ github.repository }}
+            git fetch origin develop
+            git checkout develop
+            echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
+            echo $last_commit
+
+        - name: send repository dispatch 
+          uses: peter-evans/repository-dispatch@v2 #this is not reflected
+          with:
+              token: '${{ secrets.MY_TOKEN }}'
+              repository: oat-sa/test-private-repo
+              event-type: pull-changes-from-community
+              client-payload: '{"pr_num": "337", "commit_sha": "${{ steps.fetch_details.outputs.last_commit}}" }'  

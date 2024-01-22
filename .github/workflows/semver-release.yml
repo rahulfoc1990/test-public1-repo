@@ -2,14 +2,15 @@ name: SemVer Release
 
 on:
   workflow_dispatch:
-  push:
-   branches:
-     - develop
+  pull_request:
+    branches:
+      - develop
+    types: [closed]
 jobs:
   auto-release:
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     # name: Automated package release
-    if: github.actor == 'edwin-focaloid'
+    #if: github.actor == 'edwin-focaloid'
     runs-on: ubuntu-latest
     
     steps:    
