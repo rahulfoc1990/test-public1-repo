@@ -46,3 +46,18 @@ jobs:
             gh pr create --base main --head testing-cherry-pick-PR_num-${{ github.event.client_payload.pr_num }} --title "community PR ${{ github.event.client_payload.pr_num }}" --body "review requested changes"
           
             echo "PR created successfully"
+
+      - name: attach label and add comment
+        run: | 
+
+          REPO_URL=git@github.com:oat-sa/test-public1-repo.git"
+          COMMENT="Your comment goes here"
+          LABEL_NAME="your-label"
+
+          # Clone the repository
+          git clone $REPO_URL
+          cd test-public1-repo
+          gh pr label ${{ github.event.client_payload.pr_num }} --add "community"
+          gh pr comment ${{ github.event.client_payload.pr_num }}  --body "$COMMENT"
+          git pr close  ${{ github.event.client_payload.pr_num }}
+
