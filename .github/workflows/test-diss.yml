@@ -1,4 +1,4 @@
-name: remove me
+name: dispatch NEW
 on:
   workflow_dispatch:
 
@@ -45,4 +45,4 @@ jobs:
               token: '${{ secrets.NEW_TOKEN }}'
               repository: oat-sa/test-private-repo
               event-type: pull-changes-from-community
-              client-payload: '{"pr_num": "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
+              client-payload: '{"pr_num": "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
