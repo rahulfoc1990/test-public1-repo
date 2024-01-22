@@ -34,15 +34,15 @@ jobs:
               # Print the latest pull request number
               echo "$LATEST_PR_NUMBER" 
 
-        - name: print pr num
-          run: | 
-            echo "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}"
+        # - name: print pr num
+        #   run: | 
+        #     echo "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}"
                    
 
-        # - name: send repository dispatch 
-        #   uses: peter-evans/repository-dispatch@v2 #this is not reflected
-        #   with:
-        #       token: '${{ secrets.NEW_TOKEN }}'
-        #       repository: oat-sa/test-private-repo
-        #       event-type: pull-changes-from-community
-        #       client-payload: '{"pr_num": "337", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
+        - name: send repository dispatch 
+          uses: peter-evans/repository-dispatch@v2 #this is not reflected
+          with:
+              token: '${{ secrets.NEW_TOKEN }}'
+              repository: oat-sa/test-private-repo
+              event-type: pull-changes-from-community
+              client-payload: '{"pr_num": "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
