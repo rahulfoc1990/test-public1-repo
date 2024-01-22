@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest     
     steps:
 
+        - name: Checkout code
+          uses: actions/checkout@v3      
+          with: 
+           repository: oat-sa/test-public1-repo
+
         - name: get commit and PR number 
           id: fetch_details
           run : | 
