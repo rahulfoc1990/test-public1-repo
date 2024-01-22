@@ -22,10 +22,19 @@ jobs:
             echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
             echo $last_commit
 
-        - name: send repository dispatch 
-          uses: peter-evans/repository-dispatch@v2 #this is not reflected
-          with:
-              token: '${{ secrets.NEW_TOKEN }}'
-              repository: oat-sa/test-private-repo
-              event-type: pull-changes-from-community
-              client-payload: '{"pr_num": "337", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
+
+        - name: Get Latest Pull Request Number
+          run: |
+              # Get the number of the latest open pull request
+              LATEST_PR_NUMBER=$(gh pr list --json 'number' --state open --base main | jq -r '.[0].number')
+    
+              # Print the latest pull request number
+              echo "Latest Pull Request Number: $LATEST_PR_NUMBER"
+
+        # - name: send repository dispatch 
+        #   uses: peter-evans/repository-dispatch@v2 #this is not reflected
+        #   with:
+        #       token: '${{ secrets.NEW_TOKEN }}'
+        #       repository: oat-sa/test-private-repo
+        #       event-type: pull-changes-from-community
+        #       client-payload: '{"pr_num": "337", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
