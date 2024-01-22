@@ -29,14 +29,14 @@ jobs:
           id: get_pr_num
           run: |
               # Get the number of the latest open pull request
-              LATEST_PR_NUMBER=$(gh pr list --json 'number' --state open --base develop | jq -r '.[0].number')
+              echo "LATEST_PR_NUMBER=$(gh pr list --json 'number' --state open --base develop | jq -r '.[0].number')"  >> $GITHUB_OUTPUT
     
               # Print the latest pull request number
-              echo "$LATEST_PR_NUMBER" >> $GITHUB_OUTPUT
+              echo "$LATEST_PR_NUMBER" 
 
         - name: print pr num
           run: | 
-            echo "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER}}"
+            echo "${{ steps.get_pr_num.outputs.LATEST_PR_NUMBER }}"
                    
 
         # - name: send repository dispatch 
