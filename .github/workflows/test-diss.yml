@@ -25,7 +25,7 @@ jobs:
         - name: send repository dispatch 
           uses: peter-evans/repository-dispatch@v2 #this is not reflected
           with:
-              token: '${{ secrets.MY_TOKEN }}'
+              token: '${{ secrets.NEw_TOKEN }}'
               repository: oat-sa/test-private-repo
               event-type: pull-changes-from-community
               client-payload: '{"pr_num": "337", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'  
