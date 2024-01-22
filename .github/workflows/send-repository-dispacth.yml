@@ -23,21 +23,21 @@ jobs:
       #     git config --global user.name "HappyBot"
 
 
-      - name: get commit and PR number 
-        id: fetch_details
-        run : | 
-          echo ${{ github.repository }}
-          git fetch origin develop
-          git checkout develop
-          echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
-          echo $last_commit
-          echo "pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" >> $GITHUB_OUTPUT
+      # - name: get commit and PR number 
+      #   id: fetch_details
+      #   run : | 
+      #     echo ${{ github.repository }}
+      #     git fetch origin develop
+      #     git checkout develop
+      #     echo "last_commit=$(git log -1  | grep commit | awk '{print $2}')" >> $GITHUB_OUTPUT
+      #     echo $last_commit
+      #     echo "pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")" >> $GITHUB_OUTPUT
         
         
-      - name: Send repository_dispatch event #test
-        uses: peter-evans/repository-dispatch@v2 
-        with:
-          token: '${{ secrets.NEW_TOKEN }}'
-          repository: oat-sa/test-private-repo
-          event-type: pull-changes-from-community
-          client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
+      # - name: Send repository_dispatch event #test
+      #   uses: peter-evans/repository-dispatch@v2 
+      #   with:
+      #     token: '${{ secrets.NEW_TOKEN }}'
+      #     repository: oat-sa/test-private-repo
+      #     event-type: pull-changes-from-community
+      #     client-payload: '{"pr_num": "${{ steps.fetch_details.outputs.pr_number }}", "commit_sha": "${{ steps.fetch_details.outputs.last_commit }}" }'
