@@ -56,7 +56,7 @@ jobs:
           # Clone the repository
           git clone $REPO_URL
           cd test-public1-repo
-          gh pr label ${{ github.event.client_payload.pr_num }} --add "community"
+          gh pr label ${{ github.event.client_payload.pr_num }} --add-label "community"
           gh pr comment ${{ github.event.client_payload.pr_num }}  --body "$COMMENT"
           git pr close  ${{ github.event.client_payload.pr_num }}
 
