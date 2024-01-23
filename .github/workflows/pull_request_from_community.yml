@@ -58,5 +58,5 @@ jobs:
           cd test-public1-repo
           gh pr edit ${{ github.event.client_payload.pr_num }} --add-label "community"
           gh pr comment ${{ github.event.client_payload.pr_num }}  --body "$COMMENT"
-          git pr close  ${{ github.event.client_payload.pr_num }}
+          gh pr close  ${{ github.event.client_payload.pr_num }}
 
