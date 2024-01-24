@@ -53,7 +53,7 @@ jobs:
           REPO_URL="git@github.com:oat-sa/test-public1-repo.git"
           COMMENT="we will take this requested changes on next release"
 
-          # Clone the repository
+          # closing the remote PR
           git clone $REPO_URL
           cd test-public1-repo
           gh pr edit ${{ github.event.client_payload.pr_num }} --add-label "community"
